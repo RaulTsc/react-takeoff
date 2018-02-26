@@ -12,4 +12,5 @@ In this section I will post some nice resources I've found on internet.
 
 * https://www.udemy.com/react-2nd-edition/ by Andrew Mead
     --as well recommended by fcc gitter guys..they say is the best explained tutorial on react on the internet
-  
+
+* https://daveceddia.com/how-does-redux-work/ -- nice Redux and React(very well explained)
