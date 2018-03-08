@@ -32,3 +32,11 @@ export const editReminder = (text) => {
     };
     return action;
 }
+
+export const toggleIsEditingRow = (id, isEditing) => ({
+    type: 'IS_EDITING_ROW',
+    result: {
+        id,
+        isEditing
+    }
+});
