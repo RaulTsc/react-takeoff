@@ -16,3 +16,6 @@ yarn-error.log*
 
 #atom ternjs config
 .tern-project
+
+# build
+/build

@@ -1,16 +1,26 @@
 import React from 'react';
 import moment from 'moment-timezone';
+import { FaPencil, FaCheck } from 'react-icons/lib/fa'
 
+//onClick={() => editReminder(reminder.text)}
+//          onClick={() => submitReminder(reminder.text)}
 class RemindersList extends React.Component {
-    componentWillMount () {
-        clearInterval(this.interval);
-    }
-    componentDidMount () {
-        this.interval = setInterval(
-            this.forceUpdate.bind(this),
-            parseInt(this.props.updateInterval, 10) || 100
-        );
-    }
+
+    renderEditButtons(){
+        if(!this.props.editItem){
+           return(<button 
+            className="list-item btn btn-dark btn-xs pull-right edit"
+          >
+            <FaPencil />
+            </button>);
+         } else {
+             return(<button 
+             className="list-item btn btn-success btn-xs pull-right edit"
+   >
+             <FaCheck />
+             </button>)
+        }
+     }
 
     render () {
         const { reminders, deleteReminder } = this.props;
@@ -18,7 +28,7 @@ class RemindersList extends React.Component {
             <ul className="list-group">
                 {
                     reminders.map((reminder) => (
-                        <li key={reminder.id} className="list-group-item clearfix">
+                        <li key={reminder.id} className="list-group-item">
                             <span className="list-item">{reminder.text}</span>
                             <button
                                 className="list-item btn btn-danger btn-xs pull-right"
@@ -26,10 +36,10 @@ class RemindersList extends React.Component {
                             >
                                 &#x2715;
                             </button>
+                            {this.renderEditButtons()}
                             <div className="list-item time">
                                 {
                                     moment(new Date(reminder.dueDate))
-                                    // .locale('ru')
                                     .fromNow()
                                 }
                             </div>
@@ -39,9 +49,4 @@ class RemindersList extends React.Component {
     }
 }
 
-RemindersList.propTypes = {
-    reminders: React.PropTypes.array.isRequired,
-    deleteReminder: React.PropTypes.func.isRequired,
-    updateInterval: React.PropTypes.string,
-};
 export default RemindersList;

@@ -12,6 +12,11 @@ const removeByID = (state = [], id) => {
     return reminders;
 };
 
+const editByID = (state = [], id) => {
+    const reminders = state.filter(r => r.id !== id);
+    return reminders;
+};
+
 const Reminders = (state = [], action) => {
     let reminders = null;
     const savedReminders = localStorage.getItem('remindlist');
