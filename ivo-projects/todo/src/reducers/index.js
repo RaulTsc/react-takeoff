@@ -1,10 +1,10 @@
-import { ADD_REMINDER, DELETE_REMINDER, CLEAR_REMINDERS, IS_EDITING_ROW } from '../constants';
+import { ADD_REMINDER, DELETE_REMINDER, CLEAR_REMINDERS, IS_EDITING_ROW } from '../actionTypes';
 
 const reminderAdd = (action) => ({
-    text: action.text,
+    text: action.result.text,
     id: Math.random(),
     done: false,
-    dueDate: action.dueDate
+    dueDate: action.result.dueDate
 });
 
 const removeByID = (state = [], id) => {
@@ -15,12 +15,9 @@ const removeByID = (state = [], id) => {
 const editByID = (reminderList = [], id, payload) => {
     const item = reminderList.find(remainder => remainder.id === id);
     const itemIndex = reminderList.findIndex(remainder => remainder.id === id);
-  //  const updatedItem = {...item, ...payload}
-    const updatedItem = item;
-    updatedItem.isEditing = payload.isEditing;
+    const updatedItem = {...item, ...payload};
     const updatedReminderList = [...reminderList];
     updatedReminderList.splice(itemIndex, 1, updatedItem);
-    console.log('updatedItem', updatedItem);
     return updatedReminderList;
 };
 
@@ -35,7 +32,7 @@ const Reminders = (state = [], action) => {
             localStorage.setItem('remindlist', JSON.stringify(reminders));
             return reminders;
         case DELETE_REMINDER:
-            reminders = removeByID(currentState, action.id);
+            reminders = removeByID(currentState, action.result.id);
             reminders = reminders.sort((r1, r2) => r1.dueDate > r2.dueDate);
             localStorage.setItem('remindlist', JSON.stringify(reminders));
             return reminders;
@@ -46,7 +43,6 @@ const Reminders = (state = [], action) => {
         case IS_EDITING_ROW:
             const updatedReminderList = editByID(currentState, action.result.id, {isEditing: action.result.isEditing})
             localStorage.setItem('remindlist', JSON.stringify(updatedReminderList));
-            console.log('current state', currentState, 'updatedReminderList', updatedReminderList);
             return updatedReminderList;           
         default:
             return currentState;

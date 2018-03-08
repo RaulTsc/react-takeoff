@@ -2,12 +2,9 @@ import React from 'react';
 import moment from 'moment-timezone';
 import { FaPencil, FaCheck } from 'react-icons/lib/fa'
 
-//onClick={() => editReminder(reminder.text)}
-//          onClick={() => submitReminder(reminder.text)}
 class RemindersList extends React.Component {
 
     renderEditButtons(reminder){
-        console.log(this.props);
         if(!reminder.isEditing){
            return(<button 
             className="list-item btn btn-dark btn-xs pull-right edit"

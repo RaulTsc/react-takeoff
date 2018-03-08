@@ -28,20 +28,12 @@ class App extends Component {
         this.props.deleteReminder(id);
     }
 
-    editReminder(id) {
-        this.props.editReminder(id);
-    }
-
     addCheckActive() {
         const newValue = this.taskInput.value;
         if (newValue > '' && this.state.disabled)
             this.setState({disabled: false});
         else if (!newValue && !this.state.disabled)
             this.setState({disabled: true});
-    }
-
-    showInput = () => {
-        this.setState({ showInput : true} );
     }
 
     render() {
