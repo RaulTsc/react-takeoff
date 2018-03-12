@@ -1,9 +1,5 @@
 import React from 'react';
 import moment from 'moment-timezone';
-import {
-     FaPencil,
-     FaCheck 
-} from 'react-icons/lib/fa';
 import EditButtons from './EditButtons';
 import InputField from './InputField';
 
@@ -16,7 +12,10 @@ class RemindersList extends React.Component {
                 {
                   reminders.map((reminder) => (
                         <li key={reminder.id} className="list-group-item">
-                            {this.renderInputField(reminder)}         
+                            <InputField 
+                                isEditing={props.isEditing}
+                                text={props.text}
+                            />        
                             <button
                                 className="list-item btn btn-danger btn-xs pull-right"
                                 onClick={() => deleteReminder(reminder.id)}
@@ -24,7 +23,8 @@ class RemindersList extends React.Component {
                                 &#x2715;
                             </button>
                             <EditButtons 
-                                isEditing={reminder.isEditing} 
+                                isEditing={props.isEditing}
+                                id={props.id} 
                             />
                             <div className="list-item time">
                                 {
