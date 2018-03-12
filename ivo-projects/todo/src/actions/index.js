@@ -1,4 +1,9 @@
-import { ADD_REMINDER, DELETE_REMINDER, CLEAR_REMINDERS, IS_EDITING_ROW, EDIT_REMINDER } from '../actionTypes';
+import { 
+    ADD_REMINDER, 
+    DELETE_REMINDER, 
+    CLEAR_REMINDERS, 
+    IS_EDITING_ROW 
+} from '../actionTypes';
 
 export const addReminder = (text, dueDate) => ({
     type: ADD_REMINDER,
@@ -16,7 +21,8 @@ export const deleteReminder = (id) => ({
 });
 
 export const clearReminders = () => ({
-    type: CLEAR_REMINDERS
+    type: CLEAR_REMINDERS,
+    result: {}
 });
 
 
@@ -25,13 +31,6 @@ export const toggleIsEditingRow = (id, isEditing, text) => ({
     result: {
         id,
         isEditing,
-        text
-    }
-});
-
-export const editReminder = (text) => ({
-    type: EDIT_REMINDER,
-    result: {
         text
     }
 });

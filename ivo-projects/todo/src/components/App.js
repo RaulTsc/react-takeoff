@@ -2,15 +2,19 @@ import React, { Component } from 'react';
 import moment from 'moment-timezone';
 import { connect } from 'react-redux';
 import RemindersList from './Reminders';
-import { addReminder, deleteReminder, clearReminders, editReminder, toggleIsEditingRow } from '../actions';
+import { 
+    addReminder, 
+    deleteReminder, 
+    clearReminders, 
+    toggleIsEditingRow 
+} from '../actions';
 
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            disabled: true,
-            editItem: false, 
+            disabled: true
         };
         this.addCheckActive = this.addCheckActive.bind(this);
     }
@@ -68,7 +72,6 @@ class App extends Component {
                     <RemindersList
                         reminders={this.props.reminders}
                         deleteReminder={this.props.deleteReminder}
-                        editItem={this.state.editItem}
                         toggleIsEditingRow={this.props.toggleIsEditingRow}
                     />
                     {this.props.reminders.length > 1 &&
@@ -87,4 +90,10 @@ class App extends Component {
 
 export default connect((state) => ({
     reminders: state
-}), { addReminder, deleteReminder, clearReminders, editReminder, toggleIsEditingRow })(App);
+}), { 
+        addReminder, 
+        deleteReminder, 
+        clearReminders, 
+        toggleIsEditingRow 
+    }
+)(App);

@@ -1,4 +1,9 @@
-import { ADD_REMINDER, DELETE_REMINDER, CLEAR_REMINDERS, IS_EDITING_ROW } from '../actionTypes';
+import { 
+    ADD_REMINDER, 
+    DELETE_REMINDER, 
+    CLEAR_REMINDERS, 
+    IS_EDITING_ROW 
+} from '../actionTypes';
 
 const reminderAdd = (action) => ({
     text: action.result.text,
