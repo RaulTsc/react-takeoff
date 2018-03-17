@@ -73,6 +73,7 @@ class App extends Component {
                         reminders={this.props.reminders}
                         deleteReminder={this.props.deleteReminder}
                         toggleIsEditingRow={this.props.toggleIsEditingRow}
+                        isEditing={this.props.isEditing}
                     />
                     {this.props.reminders.length > 1 &&
                         <button
@@ -89,7 +90,7 @@ class App extends Component {
 }
 
 export default connect((state) => ({
-    reminders: state
+    reminders: state,
 }), { 
         addReminder, 
         deleteReminder, 

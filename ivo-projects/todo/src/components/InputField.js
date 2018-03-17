@@ -1,11 +1,22 @@
 import React from 'react';
 
-const InputField = (props) => {
-    if(!props.isEditing) {
-        return(<span className="list-item">{props.text}</span>)
-    } else {
-        return(<input type="text" ref={(c) => { this.taskInput = c; }}  />)
+class InputField extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            editedReminderText: props.reminderText
+        };
+    };
+
+
+    render() {
+        if(!this.props.isEditing) {
+            return(<span className="list-item">{this.state.editedReminderText}</span>)
+        } else {
+            return(<input type="text" placeholder='Enter new text...' onChange={e => this.setState({editedReminderText: e.target.value}) } />)
+        }
     }
+  
 };
 
 export default InputField;

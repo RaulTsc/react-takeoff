@@ -9,7 +9,7 @@ const EditButtons = (props) => {
             return(
                 <button 
                     className="list-item btn btn-dark btn-xs pull-right edit"
-                    onClick={() => {props.toggleIsEditingRow(props.id, true)}}
+                    onClick={() => {props.toggleIsEditingRow(props.reminderId, true)}}
                 >
                     <FaPencil />
                 </button>
@@ -18,7 +18,7 @@ const EditButtons = (props) => {
             return(
                 <button 
                     className="list-item btn btn-success btn-xs pull-right edit"
-                    onClick={() => {props.toggleIsEditingRow(props.id, false)}}
+                    onClick={() => {props.toggleIsEditingRow(props.reminderId, false)}}
                 >
                     <FaCheck />
                 </button>
