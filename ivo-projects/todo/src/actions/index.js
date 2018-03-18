@@ -2,7 +2,8 @@ import {
     ADD_REMINDER, 
     DELETE_REMINDER, 
     CLEAR_REMINDERS, 
-    IS_EDITING_ROW 
+    IS_EDITING_ROW,
+    EDIT_REMINDER_TEXT
 } from '../actionTypes';
 
 export const addReminder = (text, dueDate) => ({
@@ -26,11 +27,18 @@ export const clearReminders = () => ({
 });
 
 
-export const toggleIsEditingRow = (id, isEditing, text) => ({
+export const toggleIsEditingRow = (id, isEditing) => ({
     type: IS_EDITING_ROW,
     result: {
         id,
         isEditing,
-        text
+    }
+});
+
+export const editReminderText = (text, id) => ({
+    type: EDIT_REMINDER_TEXT,
+    result: {
+        text,
+        id
     }
 });

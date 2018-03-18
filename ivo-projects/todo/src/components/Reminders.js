@@ -6,7 +6,7 @@ import InputField from './InputField';
 class RemindersList extends React.Component {
 
     render () {
-        const { reminders, deleteReminder, toggleIsEditingRow } = this.props;
+        const { reminders, deleteReminder, toggleIsEditingRow, editReminderText } = this.props;
         return (
             <ul className="list-group">
                 {
@@ -14,7 +14,9 @@ class RemindersList extends React.Component {
                         <li key={reminder.id} className="list-group-item">
                           <InputField 
                             reminderText={reminder.text}
+                            reminderId={reminder.id}
                             isEditing={reminder.isEditing}
+                            editReminderText={editReminderText}
                           />        
                             <button
                                 className="list-item btn btn-danger btn-xs pull-right"

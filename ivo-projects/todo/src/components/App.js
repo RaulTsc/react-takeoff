@@ -6,7 +6,8 @@ import {
     addReminder, 
     deleteReminder, 
     clearReminders, 
-    toggleIsEditingRow 
+    toggleIsEditingRow,
+    editReminderText 
 } from '../actions';
 
 
@@ -19,6 +20,7 @@ class App extends Component {
         this.addCheckActive = this.addCheckActive.bind(this);
     }
 
+    
     addReminder (e) {
         this.props.addReminder(
             this.taskInput.value,
@@ -53,6 +55,7 @@ class App extends Component {
                             placeholder="I have to…"
                             ref={(c) => { this.taskInput = c; }}
                             onChange={this.addCheckActive}
+                            onKeyPress={this.onEnterKeyPress}
                         />
                         <input
                             className="form-control"
@@ -74,6 +77,7 @@ class App extends Component {
                         deleteReminder={this.props.deleteReminder}
                         toggleIsEditingRow={this.props.toggleIsEditingRow}
                         isEditing={this.props.isEditing}
+                        editReminderText={this.props.editReminderText}
                     />
                     {this.props.reminders.length > 1 &&
                         <button
@@ -95,6 +99,7 @@ export default connect((state) => ({
         addReminder, 
         deleteReminder, 
         clearReminders, 
-        toggleIsEditingRow 
+        toggleIsEditingRow,
+        editReminderText 
     }
 )(App);
