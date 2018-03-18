@@ -23,3 +23,8 @@
     opacity: 0.5;
     font-style: italic;
 }
+
+.edit {
+    margin-bottom: 5px;
+    margin-right: 3px;
+}

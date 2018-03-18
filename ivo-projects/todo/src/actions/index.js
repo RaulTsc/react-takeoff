@@ -1,19 +1,36 @@
-import { ADD_REMINDER, DELETE_REMINDER, CLEAR_REMINDERS } from '../constants';
+import { 
+    ADD_REMINDER, 
+    DELETE_REMINDER, 
+    CLEAR_REMINDERS, 
+    IS_EDITING_ROW 
+} from '../actionTypes';
 
 export const addReminder = (text, dueDate) => ({
     type: ADD_REMINDER,
-    text,
-    dueDate
+    result: {
+        text,
+        dueDate
+    }
 });
 
-export const deleteReminder = (id) => {
-    const action = {
-        type: DELETE_REMINDER,
+export const deleteReminder = (id) => ({
+    type: DELETE_REMINDER,
+    result: {
         id
-    };
-    return action;
-};
+    }
+});
 
 export const clearReminders = () => ({
-    type: CLEAR_REMINDERS
+    type: CLEAR_REMINDERS,
+    result: {}
+});
+
+
+export const toggleIsEditingRow = (id, isEditing, text) => ({
+    type: IS_EDITING_ROW,
+    result: {
+        id,
+        isEditing,
+        text
+    }
 });
