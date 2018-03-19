@@ -61,3 +61,7 @@
 .done-button-hidden {
     display: none;
 }
+
+.clear-done-button {
+    margin-left: 5px;
+}

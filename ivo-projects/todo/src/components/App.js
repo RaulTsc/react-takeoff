@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import moment from 'moment-timezone';
 import { connect } from 'react-redux';
 import RemindersList from './Reminders';
+import { ClearAllButton } from './ClearAllButton';
+import { ClearDoneButton } from './ClearDoneButton';
 import { 
     addReminder, 
     deleteReminder, 
     clearReminders, 
     toggleIsEditingRow,
     editReminderText,
-    doneReminder
+    doneReminder,
+    clearDoneReminders
 } from '../actions';
 
 
@@ -81,14 +84,14 @@ class App extends Component {
                         editReminderText={this.props.editReminderText}
                         doneReminder={this.props.doneReminder}
                     />
-                    {this.props.reminders.length > 1 &&
-                        <button
-                            className="btn btn-danger"
-                            type="button"
-                            onClick={() => this.props.clearReminders()}
-                        >
-                            Clear all
-                    </button>}
+                    <ClearAllButton 
+                        reminders={this.props.reminders}
+                        clearReminders={this.props.clearReminders}
+                    />
+                    <ClearDoneButton 
+                        reminders={this.props.reminders}
+                        clearDoneReminders={this.props.clearDoneReminders}
+                    />
                 </div>
             </div>
         );
@@ -103,6 +106,7 @@ export default connect((state) => ({
         clearReminders, 
         toggleIsEditingRow,
         editReminderText,
-        doneReminder 
+        doneReminder,
+        clearDoneReminders 
     }
 )(App);

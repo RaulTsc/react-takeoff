@@ -4,7 +4,8 @@ import {
     CLEAR_REMINDERS, 
     IS_EDITING_ROW,
     EDIT_REMINDER_TEXT,
-    REMINDER_DONE
+    REMINDER_DONE,
+    CLEAR_DONE_REMINDERS
 } from '../actionTypes';
 
 const reminderAdd = (action) => ({
@@ -46,6 +47,11 @@ const doneReminder = (reminderList = [], id, payload) => {
     return updatedReminderList;
 }
 
+const clearDoneReminders = (reminderList = []) => {
+    const doneRemindersClearedList = reminderList.filter( (reminder) => reminder.isDone !== true);
+    return doneRemindersClearedList;
+};
+
 const Reminders = (state = [], action) => {
     let reminders = null;
     const savedReminders = localStorage.getItem('remindlist');
@@ -75,6 +81,10 @@ const Reminders = (state = [], action) => {
             return reminders;
         case REMINDER_DONE:
             reminders = doneReminder(currentState, action.result.id, {isDone: action.result.isDone});
+            localStorage.setItem('remindlist', JSON.stringify(reminders));
+            return reminders;
+        case CLEAR_DONE_REMINDERS:
+            reminders = clearDoneReminders(currentState);
             localStorage.setItem('remindlist', JSON.stringify(reminders));
             return reminders;
         default:
