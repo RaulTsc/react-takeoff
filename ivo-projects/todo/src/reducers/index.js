@@ -3,7 +3,8 @@ import {
     DELETE_REMINDER, 
     CLEAR_REMINDERS, 
     IS_EDITING_ROW,
-    EDIT_REMINDER_TEXT
+    EDIT_REMINDER_TEXT,
+    REMINDER_DONE
 } from '../actionTypes';
 
 const reminderAdd = (action) => ({
@@ -36,6 +37,15 @@ const editReminderTextById = (reminderList = [], id, text) => {
     return updatedReminderList;
 } 
 
+const doneReminder = (reminderList = [], id, payload) => {
+    const item = reminderList.find(reminder => reminder.id === id);
+    const itemIndex = reminderList.findIndex(reminder => reminder.id === id);
+    const updatedItem = {...item, ...payload};
+    const updatedReminderList = [...reminderList];
+    updatedReminderList.splice(itemIndex, 1, updatedItem);
+    return updatedReminderList;
+}
+
 const Reminders = (state = [], action) => {
     let reminders = null;
     const savedReminders = localStorage.getItem('remindlist');
@@ -60,8 +70,12 @@ const Reminders = (state = [], action) => {
             localStorage.setItem('remindlist', JSON.stringify(updatedReminderList));
             return updatedReminderList;
         case EDIT_REMINDER_TEXT:
-            const reminders = editReminderTextById(currentState, action.result.id, action.result.text)
+            reminders = editReminderTextById(currentState, action.result.id, action.result.text)
             localStorage.setItem('remindlist', JSON.stringify(reminders));    
+            return reminders;
+        case REMINDER_DONE:
+            reminders = doneReminder(currentState, action.result.id, {isDone: action.result.isDone});
+            localStorage.setItem('remindlist', JSON.stringify(reminders));
             return reminders;
         default:
             return currentState;

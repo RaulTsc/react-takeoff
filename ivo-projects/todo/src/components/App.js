@@ -7,7 +7,8 @@ import {
     deleteReminder, 
     clearReminders, 
     toggleIsEditingRow,
-    editReminderText 
+    editReminderText,
+    doneReminder
 } from '../actions';
 
 
@@ -78,6 +79,7 @@ class App extends Component {
                         toggleIsEditingRow={this.props.toggleIsEditingRow}
                         isEditing={this.props.isEditing}
                         editReminderText={this.props.editReminderText}
+                        doneReminder={this.props.doneReminder}
                     />
                     {this.props.reminders.length > 1 &&
                         <button
@@ -100,6 +102,7 @@ export default connect((state) => ({
         deleteReminder, 
         clearReminders, 
         toggleIsEditingRow,
-        editReminderText 
+        editReminderText,
+        doneReminder 
     }
 )(App);
