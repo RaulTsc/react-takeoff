@@ -4,12 +4,12 @@ import {
   FaCheck 
 } from 'react-icons/lib/fa';
 
-const EditButtons = (props) => {
+export const EditButtons = (props) => {
         if(!props.isEditing) {
             return(
                 <button 
                     className="list-item btn btn-dark btn-xs pull-right edit"
-                    onClick={() => {props.toggleIsEditingRow(props.reminderId, true)}}
+                    onClick={() => {props.toggleIsEditingRow(props.reminder.id, true)}}
                 >
                     <FaPencil />
                 </button>
@@ -18,7 +18,7 @@ const EditButtons = (props) => {
             return(
                 <button 
                     className="list-item btn btn-success btn-xs pull-right edit"
-                    onClick={() => {props.toggleIsEditingRow(props.reminderId, false)}}
+                    onClick={() => {props.toggleIsEditingRow(props.reminder.id, false)}}
                 >
                     <FaCheck />
                 </button>
@@ -26,4 +26,3 @@ const EditButtons = (props) => {
         } 
 }
 
-export default EditButtons;

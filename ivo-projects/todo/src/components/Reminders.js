@@ -1,20 +1,25 @@
 import React from 'react';
 import moment from 'moment-timezone';
-import EditButtons from './EditButtons';
-import InputField from './InputField';
+import {EditButtons} from './EditButtons';
+import {InputField}  from './InputField';
 
 class RemindersList extends React.Component {
 
     render () {
-        const { reminders, deleteReminder, toggleIsEditingRow, editReminderText } = this.props;
+        const { 
+            reminders, 
+            deleteReminder, 
+            toggleIsEditingRow, 
+            editReminderText 
+        } = this.props;
+
         return (
             <ul className="list-group">
                 {
                   reminders.map((reminder) => (
                         <li key={reminder.id} className="list-group-item">
                           <InputField 
-                            reminderText={reminder.text}
-                            reminderId={reminder.id}
+                            reminder={reminder}
                             isEditing={reminder.isEditing}
                             editReminderText={editReminderText}
                           />        
@@ -27,7 +32,7 @@ class RemindersList extends React.Component {
                             <EditButtons 
                                 toggleIsEditingRow={toggleIsEditingRow}
                                 isEditing={reminder.isEditing}
-                                reminderId={reminder.id}
+                                reminder={reminder}
                             />
                             <div className="list-item time">
                                 {

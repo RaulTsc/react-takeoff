@@ -1,15 +1,15 @@
 import React from 'react';
 
-class InputField extends React.Component {
+export class InputField extends React.Component {
 
     render() {
         if(!this.props.isEditing) {
-            return(<span className="list-item">{this.props.reminderText}</span>)
+            return(<span className="list-item">{this.props.reminder.text}</span>)
         } else {
-            return(<input className="list-item-input" type="text" defaultValue={this.props.reminderText} ref={(c) => { this.editedText = c; }}  onChange={() => this.props.editReminderText(this.editedText.value, this.props.reminderId)} />)
+            return(<input className="list-item-input" type="text" value={this.props.reminder.text}  onChange={(e) => this.props.editReminderText(e.target.value, this.props.reminder.id)} />)
         }
     }
-  
+
 };
 
-export default InputField;
+
