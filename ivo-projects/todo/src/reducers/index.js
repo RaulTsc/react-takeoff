@@ -19,24 +19,21 @@ const removeByID = (state = [], id) => {
     return reminders;
 };
 
-const editByID = (reminderList = [], id, payload) => {
+const updateTodoById = (reminderList = [], id, payload, text) => {
     const item = reminderList.find(remainder => remainder.id === id);
     const itemIndex = reminderList.findIndex(remainder => remainder.id === id);
-    const updatedItem = {...item, ...payload};
+    let updatedItem;
+    if(text) {
+        delete item.text;
+        updatedItem = {text, ...item};
+    }
+    if(payload) {
+        updatedItem = {...item, ...payload};
+    }
     const updatedReminderList = [...reminderList];
     updatedReminderList.splice(itemIndex, 1, updatedItem);
     return updatedReminderList;
 };
-
-const editReminderTextById = (reminderList = [], id, text) => {
-    const item = reminderList.find(remainder => remainder.id === id);
-    const itemIndex = reminderList.findIndex(remainder => remainder.id === id);
-    delete item.text;
-    const updatedItem = {text, ...item};
-    const updatedReminderList = [...reminderList];
-    updatedReminderList.splice(itemIndex, 1, updatedItem);
-    return updatedReminderList;
-} 
 
 const doneReminder = (reminderList = [], id, payload) => {
     const item = reminderList.find(reminder => reminder.id === id);
@@ -72,11 +69,11 @@ const Reminders = (state = [], action) => {
             localStorage.setItem('remindlist', JSON.stringify(reminders));
             return reminders;
         case IS_EDITING_ROW:
-            const updatedReminderList = editByID(currentState, action.result.id, {isEditing: action.result.isEditing})
+            const updatedReminderList = updateTodoById(currentState, action.result.id, {isEditing: action.result.isEditing})
             localStorage.setItem('remindlist', JSON.stringify(updatedReminderList));
             return updatedReminderList;
         case EDIT_REMINDER_TEXT:
-            reminders = editReminderTextById(currentState, action.result.id, action.result.text)
+            reminders = updateTodoById(currentState, action.result.id, null, action.result.text)
             localStorage.setItem('remindlist', JSON.stringify(reminders));    
             return reminders;
         case REMINDER_DONE:

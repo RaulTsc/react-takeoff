@@ -1,8 +1,8 @@
 import React from 'react';
 import moment from 'moment-timezone';
-import { EditButtons } from './EditButtons';
+import { EditButton } from './EditButton';
 import { InputField }  from './InputField';
-import { DoneButtons } from './DoneButtons';
+import { DoneButton } from './DoneButton';
 
 class RemindersList extends React.Component {
 
@@ -21,17 +21,13 @@ class RemindersList extends React.Component {
                 {
                   reminders.map((reminder) => (
                         <li key={reminder.id} className="list-group-item">
-                          <DoneButtons
-                            isDone={reminder.isDone}
+                          <DoneButton
                             doneReminder={doneReminder} 
                             reminder={reminder}
-                            isEditing={reminder.isEditing}
                           />
                           <InputField 
                             reminder={reminder}
-                            isEditing={reminder.isEditing}
                             editReminderText={editReminderText}
-                            isDone={reminder.isDone}
                           />        
                           <button
                             className="list-item btn btn-danger btn-xs pull-right"
@@ -39,9 +35,8 @@ class RemindersList extends React.Component {
                           >
                             &#x2715;
                           </button>
-                          <EditButtons 
+                          <EditButton 
                             toggleIsEditingRow={toggleIsEditingRow}
-                            isEditing={reminder.isEditing}
                             reminder={reminder}
                           />
                           <div className={"list-item-time" + (reminder.isEditing ? '-editingMode' : '-nonEditingMode')}>

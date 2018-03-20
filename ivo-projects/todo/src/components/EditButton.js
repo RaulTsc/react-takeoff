@@ -4,8 +4,8 @@ import {
   FaCheck 
 } from 'react-icons/lib/fa';
 
-export const EditButtons = (props) => {
-        if(!props.isEditing) {
+export const EditButton = (props) => {
+        if(!props.reminder.isEditing) {
             return(
                 <button 
                     className="list-item btn btn-dark btn-xs pull-right edit"

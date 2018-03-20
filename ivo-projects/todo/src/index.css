@@ -53,12 +53,12 @@
 
 
 /* default case when isEditing is set to false */
-.done-button-show {
+.toggle-show {
     
 }
 
 /* done icon is hidden when reminder text is in editable mode */
-.done-button-hidden {
+.toggle-hidden {
     display: none;
 }
 
