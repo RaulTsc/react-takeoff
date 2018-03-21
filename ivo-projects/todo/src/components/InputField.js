@@ -1,22 +1,15 @@
 import React from 'react';
 
-class InputField extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            editedReminderText: props.reminderText
-        };
-    };
-
+export class InputField extends React.Component {
 
     render() {
         if(!this.props.isEditing) {
-            return(<span className="list-item">{this.state.editedReminderText}</span>)
+            return(<span className="list-item">{this.props.reminder.text}</span>)
         } else {
-            return(<input type="text" placeholder='Enter new text...' onChange={e => this.setState({editedReminderText: e.target.value}) } />)
+            return(<input className="list-item-input" type="text" value={this.props.reminder.text}  onChange={(e) => this.props.editReminderText(e.target.value, this.props.reminder.id)} />)
         }
     }
-  
+
 };
 
-export default InputField;
+
