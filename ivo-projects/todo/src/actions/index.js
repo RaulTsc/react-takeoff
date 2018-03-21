@@ -3,7 +3,8 @@ import {
     DELETE_REMINDER, 
     CLEAR_REMINDERS, 
     IS_EDITING_ROW,
-    EDIT_REMINDER_TEXT
+    EDIT_REMINDER_TEXT,
+    REMINDER_DONE
 } from '../actionTypes';
 
 export const addReminder = (text, dueDate) => ({
@@ -40,5 +41,13 @@ export const editReminderText = (text, id) => ({
     result: {
         text,
         id
+    }
+});
+
+export const doneReminder = (id, isDone) => ({
+    type: REMINDER_DONE,
+    result: {
+        id,
+        isDone
     }
 });
