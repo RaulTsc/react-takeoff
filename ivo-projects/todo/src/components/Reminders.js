@@ -14,12 +14,11 @@ class RemindersList extends React.Component {
             editReminderText,
             doneReminder 
         } = this.props;
-        console.log(this.props)
 
         return (
             <ul className="list-group">
                 {
-                  reminders.map((reminder) => (
+                  Object.keys(reminders).map((reminder) => (
                         <li key={reminder.id} className="list-group-item">
                           <DoneButton
                             doneReminder={doneReminder} 

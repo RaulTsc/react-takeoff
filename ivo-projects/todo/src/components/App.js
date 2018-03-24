@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import RemindersList from './Reminders';
 import { ClearAllButton } from './ClearAllButton';
 import { ClearDoneButton } from './ClearDoneButton';
+import { Filter } from './Filter';
 import { 
     addReminder, 
     deleteReminder, 
@@ -11,7 +12,8 @@ import {
     toggleIsEditingRow,
     editReminderText,
     doneReminder,
-    clearDoneReminders
+    clearDoneReminders,
+    changeCurrentFilter
 } from '../actions';
 
 
@@ -19,7 +21,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            disabled: true
+            disabled: true,
         };
         this.addCheckActive = this.addCheckActive.bind(this);
     }
@@ -52,6 +54,14 @@ class App extends Component {
                 <div className="App-title">
                     <h2>TODO App</h2>
                 </div>
+                <div className='filter-group'>
+                    <div className="reminders-number">
+                        <h4>{this.props.reminders.length} todos left</h4>
+                    </div>
+                    <Filter 
+                        changeCurrentFilter={this.props.changeCurrentFilter}
+                    />
+                </div>
                 <div className="form-inline reminder-form">
                     <div className="form-group">
                         <input
@@ -59,7 +69,6 @@ class App extends Component {
                             placeholder="I have to…"
                             ref={(c) => { this.taskInput = c; }}
                             onChange={this.addCheckActive}
-                            onKeyPress={this.onEnterKeyPress}
                         />
                         <input
                             className="form-control"
@@ -99,7 +108,8 @@ class App extends Component {
 }
 
 export default connect((state) => ({
-    reminders: state,
+    reminders: state.reminders,
+    currentFilter: state.currentFilter
 }), { 
         addReminder, 
         deleteReminder, 
@@ -107,6 +117,7 @@ export default connect((state) => ({
         toggleIsEditingRow,
         editReminderText,
         doneReminder,
-        clearDoneReminders 
+        clearDoneReminders,
+        changeCurrentFilter
     }
 )(App);

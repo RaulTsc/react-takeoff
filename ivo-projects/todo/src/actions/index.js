@@ -5,7 +5,8 @@ import {
     IS_EDITING_ROW,
     EDIT_REMINDER_TEXT,
     REMINDER_DONE,
-    CLEAR_DONE_REMINDERS
+    CLEAR_DONE_REMINDERS,
+    CHANGE_CURRENT_FILTER
 } from '../actionTypes';
 
 export const addReminder = (text, dueDate) => ({
@@ -57,3 +58,11 @@ export const clearDoneReminders = () => ({
     type: CLEAR_DONE_REMINDERS,
     result: {}
 });
+
+export const changeCurrentFilter = (filter) => ({
+    type: CHANGE_CURRENT_FILTER,
+    result: {
+        filter
+    }
+});
+

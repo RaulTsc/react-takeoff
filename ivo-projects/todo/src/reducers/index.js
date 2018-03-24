@@ -5,12 +5,19 @@ import {
     IS_EDITING_ROW,
     EDIT_REMINDER_TEXT,
     REMINDER_DONE,
-    CLEAR_DONE_REMINDERS
+    CLEAR_DONE_REMINDERS,
+    CHANGE_CURRENT_FILTER
 } from '../actionTypes';
+import { v4 } from 'node-uuid';
+
+const initialState = {
+    reminders: [],
+    currentFilter: 'ALL'
+}
 
 const reminderAdd = (action) => ({
     text: action.result.text,
-    id: Math.random(),
+    id: v4(),
     dueDate: action.result.dueDate
 });
 
@@ -49,44 +56,41 @@ const clearDoneReminders = (reminderList = []) => {
     return doneRemindersClearedList;
 };
 
-const Reminders = (state = [], action) => {
-    let reminders = null;
-    const savedReminders = localStorage.getItem('remindlist');
-    const currentState = savedReminders ? JSON.parse(savedReminders) : [];
+const Reminders = (state = initialState, action) => {
+    let { reminders, currentFilter } = state;
+
     switch (action.type) {
         case ADD_REMINDER:
-            reminders = [...currentState, reminderAdd(action)];
+            reminders = [...state, reminderAdd(action)];
             reminders = reminders.sort((r1, r2) => r1.dueDate > r2.dueDate);
-            localStorage.setItem('remindlist', JSON.stringify(reminders));
-            return reminders;
+            return {reminders};
         case DELETE_REMINDER:
-            reminders = removeByID(currentState, action.result.id);
+            reminders = removeByID(state, action.result.id);
             reminders = reminders.sort((r1, r2) => r1.dueDate > r2.dueDate);
-            localStorage.setItem('remindlist', JSON.stringify(reminders));
-            return reminders;
+            return {reminders};
         case CLEAR_REMINDERS:
             reminders = [];
-            localStorage.setItem('remindlist', JSON.stringify(reminders));
-            return reminders;
+            return {reminders};
         case IS_EDITING_ROW:
-            const updatedReminderList = updateTodoById(currentState, action.result.id, {isEditing: action.result.isEditing})
-            localStorage.setItem('remindlist', JSON.stringify(updatedReminderList));
-            return updatedReminderList;
+            reminders = updateTodoById(state, action.result.id, {isEditing: action.result.isEditing})
+            return {reminders};
         case EDIT_REMINDER_TEXT:
-            reminders = updateTodoById(currentState, action.result.id, null, action.result.text)
-            localStorage.setItem('remindlist', JSON.stringify(reminders));    
-            return reminders;
+            reminders = updateTodoById(state, action.result.id, null, action.result.text)
+            return {reminders};
         case REMINDER_DONE:
-            reminders = doneReminder(currentState, action.result.id, {isDone: action.result.isDone});
-            localStorage.setItem('remindlist', JSON.stringify(reminders));
-            return reminders;
+            reminders = doneReminder(state, action.result.id, {isDone: action.result.isDone});
+            return {reminders};
         case CLEAR_DONE_REMINDERS:
-            reminders = clearDoneReminders(currentState);
-            localStorage.setItem('remindlist', JSON.stringify(reminders));
-            return reminders;
+            reminders = clearDoneReminders(state);
+           return {reminders};
+        case CHANGE_CURRENT_FILTER:
+            reminders = state;
+            currentFilter = action.result.filter;
+            return {reminders, currentFilter};
         default:
-            return currentState;
+            return {reminders};
     }
 };
 
 export default Reminders;
+
