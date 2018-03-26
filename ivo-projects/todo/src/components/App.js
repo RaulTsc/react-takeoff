@@ -28,12 +28,17 @@ class App extends Component {
 
     
     addReminder (e) {
-        this.props.addReminder(
-            this.taskInput.value,
-            moment(this.timeInput.value).toDate()
-        );
-        this.taskInput.value = '';
-        this.setState({disabled: true});
+        if(moment(this.timeInput.value).isBefore(Date.now())) {
+            alert('No dates in the past are allowed!');
+            this.timeInput.value = moment().add(1, 'm').format('YYYY-MM-DDTHH:mm');
+        } else {
+            this.props.addReminder(
+                this.taskInput.value,
+                moment(this.timeInput.value).toDate()
+            );
+            this.taskInput.value = '';
+            this.setState({disabled: true});
+        }
     }
 
     deleteReminder (id) {
@@ -73,7 +78,7 @@ class App extends Component {
                         <input
                             className="form-control"
                             type="datetime-local"
-                            defaultValue={moment(Date.now()).format('YYYY-MM-DDTHH:mm')}
+                            defaultValue={moment().add(1, 'm').format('YYYY-MM-DDTHH:mm')}
                             ref={(c) => { this.timeInput = c; }}
                         />
                         <button
