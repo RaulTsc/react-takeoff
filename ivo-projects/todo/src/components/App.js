@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment-timezone';
 import { connect } from 'react-redux';
-import RemindersList from './Reminders';
+import { RemindersList } from './RemindersList';
 import { ClearAllButton } from './ClearAllButton';
 import { ClearDoneButton } from './ClearDoneButton';
 import { Filter } from './Filter';
@@ -92,6 +92,7 @@ class App extends Component {
                         isEditing={this.props.isEditing}
                         editReminderText={this.props.editReminderText}
                         doneReminder={this.props.doneReminder}
+                        currentFilter={this.props.currentFilter}
                     />
                     <ClearAllButton 
                         reminders={this.props.reminders}

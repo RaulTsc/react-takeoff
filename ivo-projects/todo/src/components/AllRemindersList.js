@@ -4,21 +4,20 @@ import { EditButton } from './EditButton';
 import { InputField }  from './InputField';
 import { DoneButton } from './DoneButton';
 
-class RemindersList extends React.Component {
+export const AllRemindersList = (props) => {
 
-    render () {
         const { 
             reminders, 
             deleteReminder, 
             toggleIsEditingRow, 
             editReminderText,
             doneReminder 
-        } = this.props;
+        } = props;
 
         return (
             <ul className="list-group">
                 {
-                  Object.keys(reminders).map((reminder) => (
+                  reminders.map((reminder) => (
                         <li key={reminder.id} className="list-group-item">
                           <DoneButton
                             doneReminder={doneReminder} 
@@ -49,7 +48,5 @@ class RemindersList extends React.Component {
                 }
             </ul>
         );
-    }
 }
 
-export default RemindersList;

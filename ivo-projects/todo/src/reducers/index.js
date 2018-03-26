@@ -61,34 +61,33 @@ const Reminders = (state = initialState, action) => {
 
     switch (action.type) {
         case ADD_REMINDER:
-            reminders = [...state, reminderAdd(action)];
+            reminders = [...reminders, reminderAdd(action)];
             reminders = reminders.sort((r1, r2) => r1.dueDate > r2.dueDate);
-            return {reminders};
+            return {reminders, currentFilter};
         case DELETE_REMINDER:
-            reminders = removeByID(state, action.result.id);
+            reminders = removeByID(reminders, action.result.id);
             reminders = reminders.sort((r1, r2) => r1.dueDate > r2.dueDate);
-            return {reminders};
+            return {reminders, currentFilter};
         case CLEAR_REMINDERS:
             reminders = [];
-            return {reminders};
+            return {reminders, currentFilter};
         case IS_EDITING_ROW:
-            reminders = updateTodoById(state, action.result.id, {isEditing: action.result.isEditing})
-            return {reminders};
+            reminders = updateTodoById(reminders, action.result.id, {isEditing: action.result.isEditing})
+            return {reminders, currentFilter};
         case EDIT_REMINDER_TEXT:
-            reminders = updateTodoById(state, action.result.id, null, action.result.text)
-            return {reminders};
+            reminders = updateTodoById(reminders, action.result.id, null, action.result.text)
+            return {reminders, currentFilter};
         case REMINDER_DONE:
-            reminders = doneReminder(state, action.result.id, {isDone: action.result.isDone});
-            return {reminders};
+            reminders = doneReminder(reminders, action.result.id, {isDone: action.result.isDone});
+            return {reminders, currentFilter};
         case CLEAR_DONE_REMINDERS:
-            reminders = clearDoneReminders(state);
-           return {reminders};
+            reminders = clearDoneReminders(reminders);
+            return {reminders, currentFilter};
         case CHANGE_CURRENT_FILTER:
-            reminders = state;
             currentFilter = action.result.filter;
             return {reminders, currentFilter};
         default:
-            return {reminders};
+            return {reminders, currentFilter};
     }
 };
 
