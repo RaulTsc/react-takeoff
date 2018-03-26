@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import moment from 'moment-timezone';
 import { connect } from 'react-redux';
-import RemindersList from './Reminders';
+import { RemindersList } from './RemindersList';
+import { ClearAllButton } from './ClearAllButton';
+import { ClearDoneButton } from './ClearDoneButton';
+import { Filter } from './Filter';
 import { 
     addReminder, 
     deleteReminder, 
     clearReminders, 
     toggleIsEditingRow,
     editReminderText,
-    doneReminder
+    doneReminder,
+    clearDoneReminders,
+    changeCurrentFilter
 } from '../actions';
 
 
@@ -16,19 +21,24 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            disabled: true
+            disabled: true,
         };
         this.addCheckActive = this.addCheckActive.bind(this);
     }
 
     
     addReminder (e) {
-        this.props.addReminder(
-            this.taskInput.value,
-            moment(this.timeInput.value).toDate()
-        );
-        this.taskInput.value = '';
-        this.setState({disabled: true});
+        if(moment(this.timeInput.value).isBefore(Date.now())) {
+            alert('No dates in the past are allowed!');
+            this.timeInput.value = moment().add(1, 'm').format('YYYY-MM-DDTHH:mm');
+        } else {
+            this.props.addReminder(
+                this.taskInput.value,
+                moment(this.timeInput.value).toDate()
+            );
+            this.taskInput.value = '';
+            this.setState({disabled: true});
+        }
     }
 
     deleteReminder (id) {
@@ -49,6 +59,14 @@ class App extends Component {
                 <div className="App-title">
                     <h2>TODO App</h2>
                 </div>
+                <div className='filter-group'>
+                    <div className="reminders-number">
+                        <h4>{this.props.reminders.length} todos left</h4>
+                    </div>
+                    <Filter 
+                        changeCurrentFilter={this.props.changeCurrentFilter}
+                    />
+                </div>
                 <div className="form-inline reminder-form">
                     <div className="form-group">
                         <input
@@ -56,12 +74,11 @@ class App extends Component {
                             placeholder="I have to…"
                             ref={(c) => { this.taskInput = c; }}
                             onChange={this.addCheckActive}
-                            onKeyPress={this.onEnterKeyPress}
                         />
                         <input
                             className="form-control"
                             type="datetime-local"
-                            defaultValue={moment(Date.now()).format('YYYY-MM-DDTHH:mm')}
+                            defaultValue={moment().add(1, 'm').format('YYYY-MM-DDTHH:mm')}
                             ref={(c) => { this.timeInput = c; }}
                         />
                         <button
@@ -80,15 +97,16 @@ class App extends Component {
                         isEditing={this.props.isEditing}
                         editReminderText={this.props.editReminderText}
                         doneReminder={this.props.doneReminder}
+                        currentFilter={this.props.currentFilter}
                     />
-                    {this.props.reminders.length > 1 &&
-                        <button
-                            className="btn btn-danger"
-                            type="button"
-                            onClick={() => this.props.clearReminders()}
-                        >
-                            Clear all
-                    </button>}
+                    <ClearAllButton 
+                        reminders={this.props.reminders}
+                        clearReminders={this.props.clearReminders}
+                    />
+                    <ClearDoneButton 
+                        reminders={this.props.reminders}
+                        clearDoneReminders={this.props.clearDoneReminders}
+                    />
                 </div>
             </div>
         );
@@ -96,13 +114,16 @@ class App extends Component {
 }
 
 export default connect((state) => ({
-    reminders: state,
+    reminders: state.reminders,
+    currentFilter: state.currentFilter
 }), { 
         addReminder, 
         deleteReminder, 
         clearReminders, 
         toggleIsEditingRow,
         editReminderText,
-        doneReminder 
+        doneReminder,
+        clearDoneReminders,
+        changeCurrentFilter
     }
 )(App);

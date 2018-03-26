@@ -53,11 +53,36 @@
 
 
 /* default case when isEditing is set to false */
-.done-button-show {
+.toggle-show {
     
 }
 
 /* done icon is hidden when reminder text is in editable mode */
-.done-button-hidden {
+.toggle-hidden {
     display: none;
+}
+
+.clear-done-button {
+    margin-left: 5px;
+}
+
+.reminders-number {
+    opacity: 0.5;
+    font-style:bold;
+    margin-right: 445px;
+}
+
+.reminders-number:hover {
+    opacity: 1;
+}
+
+.filter-dropdown {
+    color: black;
+    opacity: 0.6;
+    margin-left: 200px;
+}
+
+.filter-group {
+    display: flex;
+    justify-content: space-between;
 }

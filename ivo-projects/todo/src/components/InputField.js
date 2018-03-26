@@ -3,8 +3,8 @@ import React from 'react';
 export class InputField extends React.Component {
 
     render() {
-        if(!this.props.isEditing) {
-            if(this.props.isDone) {
+        if(!this.props.reminder.isEditing) {
+            if(this.props.reminder.isDone) {
                 return(<span className="list-item-text-done">{this.props.reminder.text}</span>)
             } else {
                 return(<span className="list-item-text">{this.props.reminder.text}</span>)
